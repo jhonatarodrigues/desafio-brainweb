@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     color:  darkBlue,
     fontWeight: 'bold',
     textAlign: 'center',
-    
+    minWidth: 100
   }
 });

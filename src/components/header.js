@@ -32,7 +32,7 @@ const Header = props => {
 const styles = StyleSheet.create({
   contentHeader: {
     backgroundColor: darkBlue,
-    height: 120,
+    height: 100,
   },
   alignHeader: {
     flex: 1,
