@@ -7,7 +7,6 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Button from '../components/defaultButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
   ADD_COUNTER, 
@@ -15,18 +14,13 @@ import {
   INCREMENT_COUNTER,
   DECREMENT_COUNTER
 } from '../actions/types';
+import Button from '../components/defaultButton';
+import Header from '../components/header';
 
 const ConfigScreen = props => {
   const data = useSelector(state => state);
   const dispatch = useDispatch();
-
-  console.log(data);
-
-  const selecionado = useSelector(state => state.counterSelected);
-  console.log(selecionado);
-
-
-
+  const selected = useSelector(state => state.counterSelected);
 
   function addCounter() {
     dispatch({ type: ADD_COUNTER });
@@ -53,7 +47,7 @@ const ConfigScreen = props => {
           style={styles.scrollView}>
           
           <View style={styles.body}>
-            <Text>Selecionado: {selecionado}</Text>
+            <Text>Selecionado: {selected}</Text>
             <Text> {data.number} </Text>
             <Button label="Add Counter" onPress={addCounter} />
             <Text> ====== </Text>

@@ -12,9 +12,16 @@ import {
 import Constants from 'expo-constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { SELECT_COUNTER } from '../actions/types';
+import { 
+  blue, 
+  darkBlue, 
+  fontFamily 
+} from '../style/globalConstant';
+import Header from '../components/header';
 
 const CounterScreen = props => {
-  const data = useSelector(state => state.counters);
+  const selected = useSelector(state => state.counterSelected);
+  const data = useSelector(state => state.counters, [selected]);
   const dispatch = useDispatch();
 
   const selectCounter = (index) => {
@@ -27,33 +34,43 @@ const CounterScreen = props => {
   }
 
   const renderItem = (item, index) => {
+    let styleActive = {};
+    if(index == selected){
+      styleActive = styles.flatListItemActiv
+    }
+    else{
+      styleActive = styles.flatListItemNoActiv
+    }
     return (
       <TouchableOpacity
         onPress={() => selectCounter(index)}
-        style={{backgroundColor: '#f0f', margin: 10}}>
-          <Text>{item.number}</Text>
-      
+        style={[
+          styles.flatListItem,
+          styleActive
+        ]}>
+          <Text style={styles.labelNameFlatListItem}> Counter {index}</Text>
+          <Text style={styles.labelFlatListItem}>
+            {item.number.toString().padStart(4, '0')}
+          </Text>
       </TouchableOpacity>
     );
   };
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <StatusBar barStyle="light-content" backgroundColor={darkBlue} />
+      <SafeAreaView style={styles.content}>
+        <Header title='Counters' />
+
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           
-          <View style={styles.body}>
-            <Text>Config === </Text>
-
-            <Text>Counter number: {data.step}</Text>
-          </View>
           <FlatList
             data={data}
             renderItem={({item, index}) => renderItem(item, index)}
             keyExtractor={(item, index) => index}
+            style={styles.flatList}
           />
 
         </ScrollView>
@@ -64,6 +81,10 @@ const CounterScreen = props => {
 
 
 const styles = StyleSheet.create({
+  content: {
+    backgroundColor: blue,
+    flex: 1
+  },
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
@@ -77,6 +98,49 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
+  flatList: {
+    paddingTop: 20,
+  },
+  flatListItem: {
+    backgroundColor: '#fff',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    height: 150,
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 15,
+    borderColor: '#000',
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderRadius: 3,
+    shadowColor: 'rgba(0,0,0,.8)',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+    elevation: 1,
+  },
+  flatListItemNoActiv: {
+    opacity: .5,
+  },
+  flatListItemActiv: {
+    opacity: 1,
+  },
+  labelFlatListItem: {
+    fontSize: 50,
+    fontFamily: fontFamily,
+    marginBottom: 15,
+  },
+  labelNameFlatListItem: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    fontFamily: fontFamily,
+    fontSize: 20,
+    fontWeight: '700',
+    opacity: 0.4,
+    color: '#000',
+  }
 });
 
 

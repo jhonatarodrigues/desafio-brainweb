@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
     step: 1,
-    counterSelected: 0,
+    counterSelected: 1,
     counters: [
         {
             number: 0
