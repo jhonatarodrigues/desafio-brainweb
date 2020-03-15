@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -23,20 +23,20 @@ import Header from '../components/header';
 
 const CounterScreen = props => {
   const selected = useSelector(state => state.counterSelected);
-  const data = useSelector(state => state.counters, [selected]);
+  const data = useSelector(state => state.counters);
   const dispatch = useDispatch();
 
+  let selectedItem;
 
-  console.log('selected: ', selected);
-  console.log('Data: ', data);
 
-  const selectCounter = (index) => {
+  const selectCounter = (item, index) => {
     dispatch(
       {
         type: SELECT_COUNTER,
         counter: index
       }
     );
+    selectedItem = item;
   }
 
   const renderItem = (item, index) => {
@@ -52,7 +52,7 @@ const CounterScreen = props => {
 
     return (
       <TouchableOpacity
-        onPress={() => selectCounter(index)}
+        onPress={() => selectCounter(item, index)}
         style={{
           ...styleActive,
           ...styles.flatListItem
@@ -84,7 +84,7 @@ const CounterScreen = props => {
                 renderItem={({item, index}) => renderItem(item, index)}
                 keyExtractor={(item, index) => index}
                 style={styles.flatList}
-                extraData={data}
+                extraData={selectedItem}
               />
             )
           }
