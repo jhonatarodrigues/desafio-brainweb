@@ -7,20 +7,35 @@ import {
   Text,
   StatusBar,
   FlatList,
+  TouchableOpacity
 } from 'react-native';
 import Constants from 'expo-constants';
-import { useSelector } from 'react-redux';
-
-function Item({ title }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-}
+import { useSelector, useDispatch } from 'react-redux';
+import { SELECT_COUNTER } from '../actions/types';
 
 const CounterScreen = props => {
   const data = useSelector(state => state.counters);
+  const dispatch = useDispatch();
+
+  const selectCounter = (index) => {
+    dispatch(
+      {
+        type: SELECT_COUNTER,
+        counter: index
+      }
+    );
+  }
+
+  const renderItem = (item, index) => {
+    return (
+      <TouchableOpacity
+        onPress={() => selectCounter(index)}
+        style={{backgroundColor: '#f0f', margin: 10}}>
+          <Text>{item.number}</Text>
+      
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <>
@@ -37,8 +52,8 @@ const CounterScreen = props => {
           </View>
           <FlatList
             data={data}
-            renderItem={({ item }) => <Item title={item.number} />}
-            keyExtractor={item => item.id}
+            renderItem={({item, index}) => renderItem(item, index)}
+            keyExtractor={(item, index) => index}
           />
 
         </ScrollView>
