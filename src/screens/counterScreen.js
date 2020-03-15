@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,24 +6,10 @@ import {
   View,
   Text,
   StatusBar,
-  FlatList
+  FlatList,
 } from 'react-native';
 import Constants from 'expo-constants';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+import { useSelector } from 'react-redux';
 
 function Item({ title }) {
   return (
@@ -33,7 +19,9 @@ function Item({ title }) {
   );
 }
 
-const Counter: () => React$Node = () => {
+const CounterScreen = props => {
+  const data = useSelector(state => state.counters);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -44,10 +32,12 @@ const Counter: () => React$Node = () => {
           
           <View style={styles.body}>
             <Text>Config === </Text>
+
+            <Text>Counter number: {data.step}</Text>
           </View>
           <FlatList
-            data={DATA}
-            renderItem={({ item }) => <Item title={item.title} />}
+            data={data}
+            renderItem={({ item }) => <Item title={item.number} />}
             keyExtractor={item => item.id}
           />
 
@@ -55,7 +45,8 @@ const Counter: () => React$Node = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -73,4 +64,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Counter;
+
+export default CounterScreen;
