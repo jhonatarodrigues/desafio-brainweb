@@ -12,7 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { 
   ADD_COUNTER, 
   REMOVE_COUNTER,
-  INCREMENT_COUNTER
+  INCREMENT_COUNTER,
+  DECREMENT_COUNTER
 } from '../actions/types';
 
 const ConfigScreen = props => {
@@ -28,15 +29,19 @@ const ConfigScreen = props => {
 
 
   function addCounter() {
-    dispatch({type: ADD_COUNTER});
+    dispatch({ type: ADD_COUNTER });
   }
 
   function removeCounter() {
-    dispatch({type: REMOVE_COUNTER});
+    dispatch({ type: REMOVE_COUNTER });
   }
 
   function incrementCounter() {
-    dispatch({type: INCREMENT_COUNTER});
+    dispatch({ type: INCREMENT_COUNTER });
+  }
+
+  function decrementCounter() {
+    dispatch({ type: DECREMENT_COUNTER });
   }
 
   return (
@@ -56,7 +61,7 @@ const ConfigScreen = props => {
             <Text> ====== </Text>
             <Button label="Increment Counter" onPress={incrementCounter} />
             <Text> ====== </Text>
-            <Button label="Decrement Counter" onPress={removeCounter} />
+            <Button label="Decrement Counter" onPress={decrementCounter} />
           </View>
 
         </ScrollView>
