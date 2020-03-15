@@ -7,14 +7,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Button from '../components/defaultButton';
 
 const Config: () => React$Node = () => {
   return (
@@ -26,7 +19,10 @@ const Config: () => React$Node = () => {
           style={styles.scrollView}>
           
           <View style={styles.body}>
-            <Text>Config === </Text>
+            <Text>aaaaa Config === </Text>
+            <Button label="Increment" />
+            <Text> ====== </Text>
+            <Button label="Decrement" />
           </View>
 
         </ScrollView>
