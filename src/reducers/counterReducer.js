@@ -4,7 +4,8 @@ import {
     ADD_COUNTER, 
     REMOVE_COUNTER,
     INCREMENT_COUNTER,
-    DECREMENT_COUNTER
+    DECREMENT_COUNTER,
+    RESET_COUNTER
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -73,6 +74,18 @@ export default function reducer(state = INITIAL_STATE, action) {
                             item.number--;
                             if(item.number < 0)
                                 item.number = 0;
+                        }
+                        return true;
+                    })
+                ]
+            }
+        case RESET_COUNTER:
+            return {
+                ...state,
+                counters: [
+                    ...state.counters.filter((item, index) => {
+                        if(index == state.counterSelected){
+                            item.number = 0;
                         }
                         return true;
                     })

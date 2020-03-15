@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
     elevation: 1,
     paddingHorizontal: 20,
     paddingVertical: 15,
+    marginBottom: 10
   },
   label: {
     fontSize: 15,
     color:  darkBlue,
     fontWeight: 'bold',
     textAlign: 'center',
-    minWidth: 85,
+    
   }
 });

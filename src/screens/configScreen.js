@@ -12,7 +12,8 @@ import {
   ADD_COUNTER, 
   REMOVE_COUNTER,
   INCREMENT_COUNTER,
-  DECREMENT_COUNTER
+  DECREMENT_COUNTER,
+  RESET_COUNTER
 } from '../actions/types';
 import Button from '../components/defaultButton';
 import Header from '../components/header';
@@ -62,8 +63,6 @@ const ConfigScreen = props => {
               <View style={styles.contentPanelButtons}>
                 <Button label={'Increment\nCounter'} onPress={incrementCounter} />
                 <Button label={'Decrement\nCounter'} onPress={decrementCounter} />
-              </View>
-              <View style={styles.contentPanelButtons}>
                 <Button label={'Reset\nCounter'} onPress={resetCounter} />
               </View>
               
@@ -104,7 +103,9 @@ const styles = StyleSheet.create({
   contentPanelButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 30
+    marginBottom: 30,
+    flexWrap: 'wrap',
+    flex: 0
   }
 });
 
