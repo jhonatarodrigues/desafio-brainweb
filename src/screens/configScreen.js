@@ -18,29 +18,47 @@ import {
 import Button from '../components/defaultButton';
 import Header from '../components/header';
 import {darkBlue, darkGrey, fontFamily, blue} from '../style/globalConstant';
+import Toast from 'react-native-simple-toast';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPlus, faMinus, faRedo } from '@fortawesome/free-solid-svg-icons';
+
 
 const ConfigScreen = props => {
   const dispatch = useDispatch();
   const selected = useSelector(state => state.counterSelected);
+  const data = useSelector(state => state.counters);
 
   function addCounter() {
     dispatch({ type: ADD_COUNTER });
+    Toast.show('Contador Adicionado');
   }
 
   function removeCounter() {
+    if(data.length == 0){
+      Toast.show('Não há mais contadores para ser removidos.', Toast.LONG);
+      return false;
+    }
     dispatch({ type: REMOVE_COUNTER });
+    Toast.show('Contador ' + (selected + 1) + ' Removido');
   }
 
   function incrementCounter() {
     dispatch({ type: INCREMENT_COUNTER });
+    Toast.show('Contador ' + (selected + 1) + ' Incrementado');
   }
 
   function decrementCounter() {
+    if(data[selected].number == 0){
+      Toast.show('Contador ' + (selected + 1) + ' Está zerado não é possivel diminuir mais', Toast.LONG);
+      return false;
+    }
     dispatch({ type: DECREMENT_COUNTER });
+    Toast.show('Contador ' + (selected + 1) + ' Decrementado');
   }
 
   function resetCounter() {
     dispatch({ type: RESET_COUNTER });
+    Toast.show('Contador ' + (selected + 1) + ' Zerado');
   }
 
   return (
@@ -61,9 +79,9 @@ const ConfigScreen = props => {
             <View style={styles.panelButton}>
               <Text style={styles.panelLabel}>Selected Counter <Text style={styles.spanTextPanel}>(Counter {selected + 1})</Text></Text>
               <View style={styles.contentPanelButtons}>
-                <Button label={'Increment\nCounter'} onPress={incrementCounter} />
-                <Button label={'Decrement\nCounter'} onPress={decrementCounter} />
-                <Button label={'Reset\nCounter'} onPress={resetCounter} />
+                <Button label={'Increment\nCounter'} icon={<FontAwesomeIcon icon={ faPlus } size={15} />} onPress={incrementCounter} />
+                <Button label={'Decrement\nCounter'} onPress={decrementCounter} icon={<FontAwesomeIcon icon={ faMinus } size={15} />}/>
+                <Button label={'Reset\nCounter'} onPress={resetCounter} icon={<FontAwesomeIcon icon={ faRedo } size={15} />}/>
               </View>
               
             </View>

@@ -13,9 +13,6 @@ const INITIAL_STATE = {
     counterSelected: 1,
     counters: [
         {
-            number: 0
-        },
-        {
             number: 3
         },
         {
@@ -45,7 +42,8 @@ export default function reducer(state = INITIAL_STATE, action) {
                             return false;
                         return true;
                     })
-                ]
+                ],
+                counterSelected: 0,
             }
         case SELECT_COUNTER:
             return {

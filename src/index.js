@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { 
-  StyleSheet
-} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { darkBlue, yellow } from './style/globalConstant';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { darkBlue, yellow, lightGrey } from './style/globalConstant';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // -- pages
 import Counter from './screens/counterScreen';
@@ -22,7 +19,7 @@ export default function App() {
         initialRouteName="Counter"
         tabBarOptions={{
           activeTintColor: yellow,
-          inactiveTintColor: 'gray',
+          inactiveTintColor: lightGrey,
           style: { backgroundColor: darkBlue },  
         }}
       >
@@ -44,7 +41,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-
-});

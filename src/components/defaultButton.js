@@ -9,15 +9,34 @@ import { fontFamily, darkBlue } from '../style/globalConstant';
 
 export default class DefaultButton extends Component {
   render() {
+    let style = {};
+    let styleLabel = {};
+    if(this.props.icon){
+      style = styles.iconButton;
+    }
+    if(this.props.icon){
+      styleLabel = styles.labelIcon;
+    }
     return (
-      <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
-        <Text style={styles.label}>{this.props.label}</Text>
+      <TouchableOpacity style={[styles.button,  style]} onPress={this.props.onPress}>
+        { this.props.icon ? (
+              this.props.icon
+            ) : (
+              <></>
+            )
+          }
+        <Text style={[styles.label, styleLabel]}>{this.props.label}</Text>
       </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  iconButton: {
+    flexDirection: 'row',
+    alignItems: "center"
+  },
+
   button:{
     backgroundColor: '#fff',
     position: 'relative',
@@ -40,5 +59,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     minWidth: 100
+  },
+  labelIcon: {
+    textAlign: 'left',
+    paddingLeft: 5
   }
 });

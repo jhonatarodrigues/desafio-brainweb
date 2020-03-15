@@ -16,7 +16,8 @@ import {
   blue, 
   darkBlue, 
   fontFamily,
-  darkGrey
+  darkGrey,
+  lightGrey
 } from '../style/globalConstant';
 import Header from '../components/header';
 
@@ -24,6 +25,10 @@ const CounterScreen = props => {
   const selected = useSelector(state => state.counterSelected);
   const data = useSelector(state => state.counters, [selected]);
   const dispatch = useDispatch();
+
+
+  console.log('selected: ', selected);
+  console.log('Data: ', data);
 
   const selectCounter = (index) => {
     dispatch(
@@ -42,13 +47,16 @@ const CounterScreen = props => {
     else{
       styleActive = styles.flatListItemNoActiv
     }
+
+    console.log(styleActive);
+
     return (
       <TouchableOpacity
         onPress={() => selectCounter(index)}
-        style={[
-          styles.flatListItem,
-          styleActive
-        ]}>
+        style={{
+          ...styleActive,
+          ...styles.flatListItem
+        }}>
           <Text style={styles.labelNameFlatListItem}> Counter {index + 1}</Text>
           <Text style={styles.labelFlatListItem}>
             {item.number.toString().padStart(4, '0')}
@@ -66,13 +74,20 @@ const CounterScreen = props => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          
-          <FlatList
-            data={data}
-            renderItem={({item, index}) => renderItem(item, index)}
-            keyExtractor={(item, index) => index}
-            style={styles.flatList}
-          />
+          { data.length === 0 ? (
+              <View style={styles.emptyItem}>
+                <Text style={styles.emptyLabel}>Ops, Não encontramos nenhum contador :'(</Text>
+              </View>
+            ) : (
+              <FlatList
+                data={data}
+                renderItem={({item, index}) => renderItem(item, index)}
+                keyExtractor={(item, index) => index}
+                style={styles.flatList}
+                extraData={data}
+              />
+            )
+          }
 
         </ScrollView>
       </SafeAreaView>
@@ -146,6 +161,17 @@ const styles = StyleSheet.create({
     color: darkGrey,
     marginTop: 5,
     marginLeft: 3,
+  },
+  emptyItem: {
+    paddingHorizontal: 30,
+    paddingTop: 30,
+  },
+  emptyLabel: {
+    fontFamily,
+    fontSize: 20,
+    color: '#fff',
+    textAlign: 'center',
+    opacity: .6,
   }
 });
 
