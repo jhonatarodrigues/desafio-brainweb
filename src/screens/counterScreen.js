@@ -15,7 +15,8 @@ import { SELECT_COUNTER } from '../actions/types';
 import { 
   blue, 
   darkBlue, 
-  fontFamily 
+  fontFamily,
+  darkGrey
 } from '../style/globalConstant';
 import Header from '../components/header';
 
@@ -48,7 +49,7 @@ const CounterScreen = props => {
           styles.flatListItem,
           styleActive
         ]}>
-          <Text style={styles.labelNameFlatListItem}> Counter {index}</Text>
+          <Text style={styles.labelNameFlatListItem}> Counter {index + 1}</Text>
           <Text style={styles.labelFlatListItem}>
             {item.number.toString().padStart(4, '0')}
           </Text>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   flatList: {
-    paddingTop: 20,
+    paddingTop: 30,
   },
   flatListItem: {
     backgroundColor: '#fff',
@@ -127,9 +128,12 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   labelFlatListItem: {
-    fontSize: 50,
+    fontSize: 60,
     fontFamily: fontFamily,
     marginBottom: 15,
+    fontWeight: '700',
+    color: '#484848',
+    letterSpacing: -2.5,
   },
   labelNameFlatListItem: {
     position: 'absolute',
@@ -138,8 +142,10 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily,
     fontSize: 20,
     fontWeight: '700',
-    opacity: 0.4,
-    color: '#000',
+    opacity: 0.6,
+    color: darkGrey,
+    marginTop: 5,
+    marginLeft: 3,
   }
 });
 

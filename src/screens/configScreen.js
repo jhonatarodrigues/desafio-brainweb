@@ -16,9 +16,9 @@ import {
 } from '../actions/types';
 import Button from '../components/defaultButton';
 import Header from '../components/header';
+import {darkBlue, darkGrey, fontFamily, blue} from '../style/globalConstant';
 
 const ConfigScreen = props => {
-  const data = useSelector(state => state);
   const dispatch = useDispatch();
   const selected = useSelector(state => state.counterSelected);
 
@@ -38,34 +38,74 @@ const ConfigScreen = props => {
     dispatch({ type: DECREMENT_COUNTER });
   }
 
+  function resetCounter() {
+    dispatch({ type: RESET_COUNTER });
+  }
+
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          
-          <View style={styles.body}>
-            <Text>Selecionado: {selected}</Text>
-            <Text> {data.number} </Text>
-            <Button label="Add Counter" onPress={addCounter} />
-            <Text> ====== </Text>
-            <Button label="Remove Counter" onPress={removeCounter} />
-            <Text> ====== </Text>
-            <Button label="Increment Counter" onPress={incrementCounter} />
-            <Text> ====== </Text>
-            <Button label="Decrement Counter" onPress={decrementCounter} />
+      <StatusBar barStyle="light-content" backgroundColor={darkBlue}/>
+      <Header title="Config" />
+      <SafeAreaView style={styles.contentSafe}>
+       
+          <View style={styles.content}>
+            <View style={styles.panelButton}>
+              <Text style={styles.panelLabel}>Counters</Text>
+              <View style={styles.contentPanelButtons}>
+                <Button label={'Add\nCounter'} onPress={addCounter} />
+                <Button label={'Remove\nCounter'} onPress={removeCounter} />
+              </View>
+            </View>
+
+            <View style={styles.panelButton}>
+              <Text style={styles.panelLabel}>Selected Counter <Text style={styles.spanTextPanel}>(Counter {selected + 1})</Text></Text>
+              <View style={styles.contentPanelButtons}>
+                <Button label={'Increment\nCounter'} onPress={incrementCounter} />
+                <Button label={'Decrement\nCounter'} onPress={decrementCounter} />
+              </View>
+              <View style={styles.contentPanelButtons}>
+                <Button label={'Reset\nCounter'} onPress={resetCounter} />
+              </View>
+              
+            </View>
           </View>
 
-        </ScrollView>
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  
+  contentSafe: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    backgroundColor: blue,
+    justifyContent: 'space-between',
+    paddingTop: 30,
+  },
+  panelLabel: {
+    fontFamily,
+    color: darkGrey,
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 15
+  },
+  spanTextPanel: {
+    fontFamily,
+    color: darkGrey,
+    fontWeight: '700',
+    fontSize: 12
+  },
+  panelButton: {
+    paddingHorizontal: 20,
+  },
+  contentPanelButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 30
+  }
 });
 
 export default ConfigScreen;
