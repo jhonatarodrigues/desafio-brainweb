@@ -1,5 +1,10 @@
 import React from 'react';
-import { SELECT_COUNTER } from '../actions/types';
+import { 
+    SELECT_COUNTER, 
+    ADD_COUNTER, 
+    REMOVE_COUNTER,
+    INCREMENT_COUNTER
+} from '../actions/types';
 
 const INITIAL_STATE = {
     step: 1,
@@ -17,19 +22,48 @@ const INITIAL_STATE = {
     ],
 }
 
-
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case 'INCREMENT':
+        case ADD_COUNTER:
             return {
                 ...state,
-                counters: [...state.counters, action.counter]
+                counters: [
+                    ...state.counters, 
+                    {
+                        number: 0
+                    }
+                ]
+            }
+        case REMOVE_COUNTER:
+            return {
+                ...state,
+                counters: [
+                    ...state.counters.filter((item, index) => {
+                        if(index == state.counterSelected)
+                            return false;
+                        return true;
+                    })
+                ]
             }
         case SELECT_COUNTER:
             return {
                 ...state,
                 counterSelected: action.counter
             }
+        
+        case INCREMENT_COUNTER: 
+            return {
+                ...state,
+                counters: [
+                    ...state.counters.filter((item, index) => {
+                        if(index == state.counterSelected){
+                            item.number++;
+                        }
+                        return true;
+                    })
+                ]
+            }
+        
         default:
             return state;
     

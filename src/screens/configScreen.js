@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import Button from '../components/defaultButton';
 import { useSelector, useDispatch } from 'react-redux';
+import { 
+  ADD_COUNTER, 
+  REMOVE_COUNTER,
+  INCREMENT_COUNTER
+} from '../actions/types';
 
 const ConfigScreen = props => {
   const data = useSelector(state => state);
@@ -16,9 +21,22 @@ const ConfigScreen = props => {
 
   console.log(data);
 
-  function increment() {
-    console.log('increment');
-    dispatch({type: 'INCREMENT'});
+  const selecionado = useSelector(state => state.counterSelected);
+  console.log(selecionado);
+
+
+
+
+  function addCounter() {
+    dispatch({type: ADD_COUNTER});
+  }
+
+  function removeCounter() {
+    dispatch({type: REMOVE_COUNTER});
+  }
+
+  function incrementCounter() {
+    dispatch({type: INCREMENT_COUNTER});
   }
 
   return (
@@ -30,10 +48,15 @@ const ConfigScreen = props => {
           style={styles.scrollView}>
           
           <View style={styles.body}>
+            <Text>Selecionado: {selecionado}</Text>
             <Text> {data.number} </Text>
-            <Button label="Increment" onPress={increment} />
+            <Button label="Add Counter" onPress={addCounter} />
             <Text> ====== </Text>
-            <Button label="Decrement" />
+            <Button label="Remove Counter" onPress={removeCounter} />
+            <Text> ====== </Text>
+            <Button label="Increment Counter" onPress={incrementCounter} />
+            <Text> ====== </Text>
+            <Button label="Decrement Counter" onPress={removeCounter} />
           </View>
 
         </ScrollView>
