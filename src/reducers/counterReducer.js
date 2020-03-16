@@ -12,11 +12,18 @@ const INITIAL_STATE = {
     counterSelected: 1,
     counters: [
         {
-            // counterSelected: true,
             number: 3,
         },
         {
-            // counterSelected: false,
+            number: 9,
+        },
+        {
+            number: 9,
+        },
+        {
+            number: 9,
+        },
+        {
             number: 9,
         },
     ],
