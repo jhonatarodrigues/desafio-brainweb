@@ -48,8 +48,6 @@ const CounterScreen = props => {
       styleActive = styles.flatListItemNoActiv
     }
 
-    console.log(styleActive);
-
     return (
       <TouchableOpacity
         onPress={() => selectCounter(item, index)}
@@ -71,9 +69,7 @@ const CounterScreen = props => {
       <SafeAreaView style={styles.content}>
         <Header title='Counters' />
 
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+        <>
           { data.length === 0 ? (
               <View style={styles.emptyItem}>
                 <Text style={styles.emptyLabel}>Ops, Não encontramos nenhum contador :'(</Text>
@@ -82,14 +78,14 @@ const CounterScreen = props => {
               <FlatList
                 data={data}
                 renderItem={({item, index}) => renderItem(item, index)}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => String(index)}
                 style={styles.flatList}
                 extraData={selectedItem}
               />
             )
           }
 
-        </ScrollView>
+        </>
       </SafeAreaView>
     </>
   );

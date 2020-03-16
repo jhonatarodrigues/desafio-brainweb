@@ -57,3 +57,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Release
+android/gradle.properties
+android/app/build.gradle

@@ -9,7 +9,6 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    step: 1,
     counterSelected: 1,
     counters: [
         {
