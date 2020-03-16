@@ -26,22 +26,17 @@ const CounterScreen = props => {
   const data = useSelector(state => state.counters);
   const dispatch = useDispatch();
 
-  let selectedItem;
-
-
   const selectCounter = (item, index) => {
-    dispatch(
-      {
-        type: SELECT_COUNTER,
-        counter: index
-      }
-    );
-    selectedItem = item;
-  }
+    dispatch({
+      type: SELECT_COUNTER,
+      item,
+      index,
+    });
+  };
 
   const renderItem = (item, index) => {
     let styleActive = {};
-    if(index == selected){
+    if(selected == index){
       styleActive = styles.flatListItemActiv
     }
     else{
@@ -52,8 +47,8 @@ const CounterScreen = props => {
       <TouchableOpacity
         onPress={() => selectCounter(item, index)}
         style={{
-          ...styleActive,
-          ...styles.flatListItem
+          ...styles.flatListItem,
+          ...styleActive
         }}>
           <Text style={styles.labelNameFlatListItem}> Counter {index + 1}</Text>
           <Text style={styles.labelFlatListItem}>
@@ -80,7 +75,6 @@ const CounterScreen = props => {
                 renderItem={({item, index}) => renderItem(item, index)}
                 keyExtractor={(item, index) => String(index)}
                 style={styles.flatList}
-                extraData={selectedItem}
               />
             )
           }
@@ -95,7 +89,7 @@ const CounterScreen = props => {
 const styles = StyleSheet.create({
   content: {
     backgroundColor: blue,
-    flex: 1
+    flex: 1,
   },
   container: {
     flex: 1,
@@ -112,6 +106,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     paddingTop: 30,
+    paddingBottom: 70,
   },
   flatListItem: {
     backgroundColor: '#fff',
@@ -122,9 +117,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     paddingHorizontal: 15,
-    borderColor: '#000',
-    borderStyle: "solid",
-    borderWidth: 2,
     borderRadius: 3,
     shadowColor: 'rgba(0,0,0,.8)',
     shadowOffset: {width: 0, height: 5},
@@ -133,10 +125,16 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   flatListItemNoActiv: {
-    opacity: .5,
+    borderColor:  'rgba(255,255,255,0)',
+    borderStyle: "solid",
+    borderWidth: 2,
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
   flatListItemActiv: {
-    opacity: 1,
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderStyle: "solid",
+    borderWidth: 2,
   },
   labelFlatListItem: {
     fontSize: 60,

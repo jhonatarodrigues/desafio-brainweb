@@ -11,8 +11,7 @@ import Config from './screens/configScreen';
 
 const Tab = createBottomTabNavigator();
 
-
-export default function App() {
+export default function Routes() {
   return (
     <NavigationContainer>
       <Tab.Navigator 
